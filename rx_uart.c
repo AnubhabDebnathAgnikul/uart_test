@@ -28,7 +28,7 @@
 
 // Global variables
 char serialPort[20];
-uint8_t receiveData;
+char receiveBuff[1024];
 
 int main()
 {
@@ -66,9 +66,9 @@ int main()
     // Receive UART data over serial port
     while (TRUE)
     {
-        if (read(uartFD, &receiveData, sizeof(receiveData)) > 0)
+        if (read(uartFD, receiveBuff, sizeof(receiveBuff)) > 0)
         {
-            printf("Data Received: %d\n", receiveData);
+            printf("Data Received: %s\n", receiveBuff);
         }
         else
         {

@@ -30,7 +30,8 @@
 
 // Global variables
 char serialPort[20];
-uint8_t sendData, loop = 1;
+char sendBuff[1024];
+uint8_t loop = 1;
 
 // Functions
 void signalHandler()
@@ -77,16 +78,22 @@ int main()
     // Send UART data over serial port
     while (loop)
     {
-        if (write(uartFD, &sendData, sizeof(sendData)) > 0)
+        printf("Enter the Message: ");
+        scanf("%s", sendBuff);
+        if (write(uartFD, sendBuff, sizeof(sendBuff)) > 0)
         {
-            printf("Data Sent: %d\n", sendData);
-            sendData = sendData + 1;
+            printf("Data Sent: %s\n", sendBuff);
         }
         else
         {
             printf("Error writing to UART: %s | %d\n", strerror(errno), errno);
             return -1;
         }
+        if (sendBuff == "")
+        {
+            printf("[+] NULL: Termination signal Received.");
+            loop = 0;
+        } 
         sleep(1);
     }
 
