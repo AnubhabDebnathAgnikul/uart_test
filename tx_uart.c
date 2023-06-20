@@ -23,7 +23,7 @@
 
 // Macros
 #define BAUDRATE_GIMBAL B230400
-#define BAUDRATE_IMU B1152000
+#define BAUDRATE_IMU B115200
 #define BAUDRATE_GNSS B921600
 #define BAUDRATE BAUDRATE_IMU
 #define TRUE 1
@@ -51,7 +51,7 @@ int main()
     int uartFD = open(serialPort, O_RDWR | O_NOCTTY);
     if (uartFD > 0)
     {
-        printf("[+] UART serial port opened successfully.");
+        printf("[+] UART serial port opened successfully.\n");
     }
     else
     {

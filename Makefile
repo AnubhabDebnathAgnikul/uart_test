@@ -17,4 +17,4 @@ clean:
 	rm -rf tx_uart_nxp rx_uart_nxp
 
 scp:
-	scp *_nxp root@${IP}:/root/uart_test
+	scp *_nxp root@${IP}:/root/cipher/uart
