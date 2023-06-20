@@ -29,8 +29,8 @@
 #define TRUE 1
 
 // Global variables
-char serialPort[20];
-uint8_t sendData, loop = 1;
+char serialPort[20], sendTime[] = "<+88:88:88:888>";
+uint8_t loop = 1, i = 9;
 
 // Functions
 void signalHandler()
@@ -77,10 +77,18 @@ int main()
     // Send UART data over serial port
     while (loop)
     {
-        if (write(uartFD, &sendData, sizeof(sendData)) > 0)
+        if (write(uartFD, &sendTime, sizeof(sendTime)-1) > 0)
         {
-            printf("Data Sent: %d\n", sendData);
-            sendData = sendData + 1;
+            printf("Data Sent: %s\n", sendTime);
+            sprintf(sendTime, "<+%d%d:%d%d:%d%d:%d%d%d>", i, i, i, i, i, i, i, i, i);
+            if ( i != 0)
+            {
+                i--;
+            }
+            else
+            {
+                i = 9;
+            }   
         }
         else
         {
